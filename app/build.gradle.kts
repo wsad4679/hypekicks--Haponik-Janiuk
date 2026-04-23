@@ -1,5 +1,7 @@
 plugins {
     alias(libs.plugins.android.application)
+
+    //    alias(libs.plugins.google.services) // dodajemy, ale na razie jest zakomentowane
 }
 
 android {
@@ -47,4 +49,9 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(libs.androidx.junit)
+
+    implementation(platform(libs.firebase.bom))
+    implementation(libs.firebase.firestore)
+
+    implementation(libs.glide)
 }
