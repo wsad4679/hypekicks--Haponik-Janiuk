@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.hypekickshaponikjaniuk.databinding.ActivityMainBinding
+import kotlin.jvm.java
 
 class MainActivity : AppCompatActivity() {
 
@@ -30,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.userPanelButton.setOnClickListener {
-            //startActivity(android.content.Intent(this, StoreFrontActivity::class.java)) TODO dostosować startowanie nowej aktywności do panelu użytkownika
+            startActivity(android.content.Intent(this, UserActivity::class.java)) //TODO dostosować startowanie nowej aktywności do panelu użytkownika
         }
     }
 }
