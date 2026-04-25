@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "875281719010",
+    "project_id": "futurecars-1a786",
+    "storage_bucket": "futurecars-1a786.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875281719010:android:c3e97c056d72f0af9d08bb",
+        "android_client_info": {
+          "package_name": "com.example.futurecarapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8nGh36FNsYfSbJyOgRtwvZOn1Cc-LeVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:875281719010:android:553169fab3a58b339d08bb",
+        "android_client_info": {
+          "package_name": "com.example.hypekickshaponikjaniuk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD8nGh36FNsYfSbJyOgRtwvZOn1Cc-LeVs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
