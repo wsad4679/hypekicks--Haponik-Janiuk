@@ -23,5 +23,14 @@ class MainActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
+
+        binding.adminPanelButton.setOnClickListener {
+            //startActivity(android.content.Intent(this, AdminPanelActivity::class.java)) TODO dostosować startowanie nowej aktywności do panelu Admina
+        }
+
+        binding.userPanelButton.setOnClickListener {
+            //startActivity(android.content.Intent(this, StoreFrontActivity::class.java)) TODO dostosować startowanie nowej aktywności do panelu użytkownika
+        }
     }
 }
