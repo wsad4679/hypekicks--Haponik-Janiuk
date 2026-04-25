@@ -55,50 +55,72 @@ class AdminPanelActivity : AppCompatActivity() {
                     brand, model, releaseYear, resellPrice, imageUrl
                 )
             ).addOnSuccessListener {
+                binding.brandEditText.text.clear() // czyszczenie formularza
+                binding.modelEditText.text.clear()
+                binding.releaseYearEditText.text.clear()
+                binding.resellPriceEditText.text.clear()
+                binding.imageUrlEditText.text.clear()
                 Toast.makeText(this, "Successfully added item", Toast.LENGTH_SHORT).show()
             }.addOnFailureListener { e ->
                 Toast.makeText(this, "Error while adding item", Toast.LENGTH_SHORT).show()
             }
 
-            fetchDataFromCloud()
+
         }
 
 
 
-        shoeListView.setOnItemLongClickListener{_, _, position, _ ->
+        shoeListView.setOnItemLongClickListener{_, _, position, _ -> // funckja do usuwania przedmiotu z bazy danych
             db.collection("shoes").document(shoesIdList[position]).delete()
                 .addOnSuccessListener {
                     Toast.makeText(this, "Succesfully deleted item", Toast.LENGTH_SHORT).show()
-                    fetchDataFromCloud()
+
                 }
                 .addOnFailureListener { e ->
                     Toast.makeText(this, "Unexpected error occurd", Toast.LENGTH_SHORT).show()
                 }
-            true
+            true // musi być aby funkcja działała
+        }
+
+
+        shoeListView.setOnItemClickListener{_,_, position, _ ->
+            db.collection("shoes").document(shoesIdList[position]).update("resellPrice", binding.priceUpdateEditText.text.toString().toInt())
+                .addOnSuccessListener {
+                    Toast.makeText(this, "Succesfully updated item price", Toast.LENGTH_SHORT).show()
+                    binding.priceUpdateEditText.text.clear()
+                }
+                .addOnFailureListener { e ->
+                    Log.e("Firebase", "Błąd aktualizacji", e)
+
+                }
         }
 
     }
 
         private fun fetchDataFromCloud() {
         db.collection("shoes")
-            .get()
-            .addOnSuccessListener { documents ->
-                shoesNameList.clear()
-                shoesIdList.clear()
-
-                for(document in documents){
-                    val shoeName = document.getString("modelName")?: "Uknown shoe model name"
-                    val shoePrice = document.getLong("resellPrice")?: -1
-                    shoesIdList.add(document.id)// pobranie id do usuwania przedmiotów
-                    shoesNameList.add("$shoeName   $shoePrice $")
+            .addSnapshotListener { snapshot, e -> // zamiast get jest snapshot aby nie informować cały czas o zmianach w bazie tylko automatycvznie nasłuchuje
+                if (e != null) {
+                    Log.w("firebase", "Błąd subskrypcji", e)
+                    return@addSnapshotListener
                 }
-                adapter.notifyDataSetChanged()
 
+                if (snapshot != null) {
+
+                    shoesNameList.clear()
+                    shoesIdList.clear()
+
+                    for (document in snapshot) {
+                        val shoeName = document.getString("modelName") ?: "Uknown shoe model name"
+                        val shoePrice = document.getLong("resellPrice") ?: -1
+                        shoesIdList.add(document.id)// pobranie id do usuwania przedmiotów
+                        shoesNameList.add("$shoeName   $shoePrice $")
+                    }
+                    adapter.notifyDataSetChanged()
+
+                }
             }
-            .addOnFailureListener { exception ->
-                Log.e("FIREBASE_ERROR", "Błąd pobierania danych: ", exception)
-                Toast.makeText(this, "Error while loading data!", Toast.LENGTH_LONG).show()
-            }
+
 
     }
 }
