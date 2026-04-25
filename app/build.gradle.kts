@@ -1,7 +1,6 @@
 plugins {
     alias(libs.plugins.android.application)
-
-    //    alias(libs.plugins.google.services) // dodajemy, ale na razie jest zakomentowane
+    alias(libs.plugins.google.services) // dodajemy, ale na razie jest zakomentowane
 }
 
 android {

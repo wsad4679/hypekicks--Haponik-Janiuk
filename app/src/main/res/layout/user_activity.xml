@@ -8,12 +8,7 @@
     tools:context=".MainActivity"
     android:orientation="vertical"
     android:background="@color/black">
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="8dp">
+
 
         <GridView
             android:id="@+id/shoesGridView"
@@ -24,6 +19,5 @@
             android:horizontalSpacing="8dp"
             android:verticalSpacing="8dp" />
 
-    </LinearLayout>
 
 </LinearLayout>

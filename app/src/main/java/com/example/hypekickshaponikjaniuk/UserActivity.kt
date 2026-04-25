@@ -7,12 +7,12 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
-import com.example.hypekickshaponikjaniuk.databinding.ActivityMainBinding
+import com.example.hypekickshaponikjaniuk.databinding.UserActivityBinding
 import com.example.hypekickshaponikjaniuk.models.Sneakers
 import com.google.firebase.firestore.FirebaseFirestore
 
 class UserActivity : AppCompatActivity() {
-    lateinit var binding: ActivityMainBinding
+    lateinit var binding: UserActivityBinding
     lateinit var shoesList: MutableList<Sneakers>
     lateinit var adapter: ShoesAdapter
     val db = FirebaseFirestore.getInstance()
@@ -21,7 +21,7 @@ class UserActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = UserActivityBinding.inflate(layoutInflater)
 
 
         setContentView(binding.root)
@@ -38,8 +38,6 @@ class UserActivity : AppCompatActivity() {
 
         adapter = ShoesAdapter(this, shoesList)
         binding.shoesGridView.adapter = adapter
-
-        val db = FirebaseFirestore.getInstance()
 
         fetchDataFromCloud()
 
