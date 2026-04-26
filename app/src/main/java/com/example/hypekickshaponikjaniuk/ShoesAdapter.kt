@@ -36,7 +36,7 @@ class ShoesAdapter (
         binding.shoesNameTextView.text = "Marka: ${shoes.brand}"
         binding.shoesModelNameTextView.text = "Model: ${shoes.modelName}"
         binding.shoesYearTextView.text = "Releas year: ${shoes.releaseYear}"
-        binding.shoesResellTextView.text = "Resell price: ${shoes.reselPrice}"
+        binding.shoesResellTextView.text = "Resell price: ${shoes.resellPrice}"
 
         Glide.with(context)
             .load(shoes.imageUrl)
