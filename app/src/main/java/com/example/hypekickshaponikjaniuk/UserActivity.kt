@@ -10,6 +10,7 @@ import androidx.core.view.WindowInsetsCompat
 import com.example.hypekickshaponikjaniuk.databinding.UserActivityBinding
 import com.example.hypekickshaponikjaniuk.models.Sneakers
 import com.google.firebase.firestore.FirebaseFirestore
+import kotlin.jvm.java
 
 class UserActivity : AppCompatActivity() {
     lateinit var binding: UserActivityBinding
@@ -48,8 +49,11 @@ class UserActivity : AppCompatActivity() {
 
         binding.shoesGridView.setOnItemClickListener { _, _, position, _ ->
             val clickedShoe = shoesList[position]
-            Toast.makeText(this, "Uruchamiam silniki w: ${clickedShoe.brand}!", Toast.LENGTH_SHORT)
-                .show()
+            val intent = android.content.Intent(this, ShoeDetailsActivity::class.java)
+
+            intent.putExtra("SHOE_DATA", clickedShoe)
+
+            startActivity(intent)
         }
 
         binding.shoesSearchView.setOnQueryTextListener(object: androidx.appcompat.widget.SearchView.OnQueryTextListener{
@@ -109,5 +113,15 @@ class UserActivity : AppCompatActivity() {
                 Log.e("FIREBASE_ERROR", "Błąd pobierania danych: ", exception)
                 Toast.makeText(this, "Błąd pobierania danych z chmury!", Toast.LENGTH_LONG).show()
             }
+    }
+
+    override fun onResume(){
+        super.onResume()
+
+        //tutaj czyscimy "" to nowy argument a false mowi ze ma nie zatwierdzac tego lupa automatycznie
+        binding.shoesSearchView.setQuery("", false)
+
+        //a tutaj robimy ze klawiaturka sama nie wyskoczy
+        binding.shoesSearchView.clearFocus()
     }
 }
