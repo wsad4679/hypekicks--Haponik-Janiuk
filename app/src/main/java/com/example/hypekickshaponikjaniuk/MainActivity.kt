@@ -32,7 +32,7 @@ class MainActivity : AppCompatActivity() {
         //seedDatabase()
 
         binding.adminPanelButton.setOnClickListener {
-            //startActivity(android.content.Intent(this, AdminPanelActivity::class.java)) TODO dostosować startowanie nowej aktywności do panelu Admina
+            startActivity(android.content.Intent(this, AdminPanelActivity::class.java))
         }
 
         binding.userPanelButton.setOnClickListener {
