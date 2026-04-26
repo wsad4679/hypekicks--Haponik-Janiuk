@@ -37,7 +37,7 @@ class ShoeDetailsActivity : AppCompatActivity() {
             binding.detailBrandTextView.text = shoe.brand
             binding.detailModelTextView.text = shoe.modelName
             binding.detailReleaseYearTextView.text = "Rok wydania: ${shoe.releaseYear}"
-            binding.detailResellPriceTextView.text = "Cena odsprzedaży: ${shoe.reselPrice}"
+            binding.detailResellPriceTextView.text = "Cena odsprzedaży: ${shoe.resellPrice}"
 
             Glide.with(this).load(shoe.imageUrl)
                 .placeholder(R.mipmap.ic_launcher) //jakby nie wczytalo zdjecia
