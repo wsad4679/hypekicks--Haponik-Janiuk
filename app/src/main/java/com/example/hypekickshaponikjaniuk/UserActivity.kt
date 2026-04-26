@@ -17,6 +17,10 @@ class UserActivity : AppCompatActivity() {
     lateinit var adapter: ShoesAdapter
     val db = FirebaseFirestore.getInstance()
 
+    private lateinit var allShoesList: MutableList<Sneakers>
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -34,6 +38,7 @@ class UserActivity : AppCompatActivity() {
         // seeDataBase()
 
         shoesList = mutableListOf()
+        allShoesList = mutableListOf()
 
 
         adapter = ShoesAdapter(this, shoesList)
@@ -46,6 +51,34 @@ class UserActivity : AppCompatActivity() {
             Toast.makeText(this, "Uruchamiam silniki w: ${clickedShoe.brand}!", Toast.LENGTH_SHORT)
                 .show()
         }
+
+        binding.shoesSearchView.setOnQueryTextListener(object: androidx.appcompat.widget.SearchView.OnQueryTextListener{
+            override fun onQueryTextSubmit(query: String?): Boolean {
+                return false
+            }
+
+            override fun onQueryTextChange(newText: String?): Boolean {
+                filterShoes(newText ?: "")
+                return true
+            }
+        })
+    }
+
+    private fun filterShoes(query: String){
+        shoesList.clear()
+
+        if(query.isEmpty()){
+            shoesList.addAll(allShoesList)
+        }else{
+            val lowerCaseQuery = query.lowercase()
+
+            for(shoe in allShoesList){
+                if(shoe.brand.lowercase().contains(lowerCaseQuery)){
+                    shoesList.add(shoe)
+                }
+            }
+        }
+        adapter.notifyDataSetChanged()
     }
 
     private fun fetchDataFromCloud() {
@@ -63,9 +96,11 @@ class UserActivity : AppCompatActivity() {
                     val resellPrice = document.getLong("resellPrice")?.toInt() ?: 0
 
                     // Tworzymy obiekt z wyciągniętych danych i dodajemy do naszej listy
-                    val car = Sneakers(brand, modelName, releaseYear, resellPrice, imageUrl)
-                    shoesList.add(car)
+                    val shoe = Sneakers(brand, modelName, releaseYear, resellPrice, imageUrl)
+                    allShoesList.add(shoe)
                 }
+                shoesList.clear()
+                shoesList.addAll(allShoesList)
 
                 // MAGIA: Mówimy Adapterowi "Hej, mam nowe dane! Odśwież ekran!"
                 adapter.notifyDataSetChanged()
